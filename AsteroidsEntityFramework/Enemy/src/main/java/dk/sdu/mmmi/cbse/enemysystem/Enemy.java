@@ -13,3 +13,5 @@ public class Enemy extends Entity {
 		super.setSize(2);
 	}
 }
+
+
