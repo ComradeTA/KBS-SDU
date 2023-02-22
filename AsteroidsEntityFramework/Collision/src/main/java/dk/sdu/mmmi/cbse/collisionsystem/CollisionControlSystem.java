@@ -18,7 +18,6 @@ public class CollisionControlSystem implements IPostEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
-        System.out.println("works");
         Random rand = new Random();
         for (Entity enemy : world.getEntities(Entity.class)) {
             PositionPart positionPart = enemy.getPart(PositionPart.class);

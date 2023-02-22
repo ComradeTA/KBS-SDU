@@ -16,7 +16,6 @@ public class CollisionPlugin implements IGamePluginService {
 
     @Override
     public void start(GameData gameData, World world) {
-        System.out.println("works3");
         // Add entities to the world
         enemy = createCollisionSystem(gameData);
         world.addEntity(enemy);
