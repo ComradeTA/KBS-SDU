@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse.playersystem;
+package dk.sdu.mmmi.cbse.projectilesystem;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -8,33 +8,40 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
-import static dk.sdu.mmmi.cbse.common.data.GameKeys.*;
+import java.util.Random;
 
 /**
  *
  * @author jcs
  */
-public class PlayerControlSystem implements IEntityProcessingService {
+public class ProjectileControlSystem implements IEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
 
-        for (Entity player : world.getEntities(Player.class)) {
-            PositionPart positionPart = player.getPart(PositionPart.class);
-            MovingPart movingPart = player.getPart(MovingPart.class);
-            ShootPart shootPart = player.getPart(ShootPart.class);
+        for (Entity entity : world.getEntities()){
+            ShootPart shootPart = entity.getPart(ShootPart.class);
+            if (shootPart != null && shootPart.isShooting() && shootPart.getRateOfFire() <= shootPart.getTimeSinceLastShot()){
+                System.out.println("SHOT!!!");
+                shootPart.justShot();
+                shootPart.setShooting(false);
+                Projectile projectile = new Projectile();
+                PositionPart positionPart = entity.getPart(PositionPart.class);
 
-            movingPart.setLeft(gameData.getKeys().isDown(LEFT));
-            movingPart.setRight(gameData.getKeys().isDown(RIGHT));
-            movingPart.setUp(gameData.getKeys().isDown(UP));
-            shootPart.setShooting(gameData.getKeys().isDown(SPACE));
-            
-            
-            movingPart.process(gameData, player);
-            positionPart.process(gameData, player);
-            shootPart.process(gameData, player);
+                projectile.add(new PositionPart(positionPart.getX(), positionPart.getY(), positionPart.getRadians()));
+                projectile.add(new MovingPart(0,1000000000,shootPart.getVelocity(),0));
+                world.addEntity(projectile);
+            }
+        }
 
-            updateShape(player);
+        for (Entity projectile : world.getEntities(Projectile.class)) {
+            PositionPart positionPart = projectile.getPart(PositionPart.class);
+            MovingPart movingPart = projectile.getPart(MovingPart.class);
+            movingPart.setUp(true);
+
+            movingPart.process(gameData, projectile);
+            positionPart.process(gameData, projectile);
+            updateShape(projectile);
         }
     }
 

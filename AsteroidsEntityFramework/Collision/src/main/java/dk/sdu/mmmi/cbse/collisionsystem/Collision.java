@@ -11,6 +11,5 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 public class Collision extends Entity {
 	public Collision(){
 		super.setSize(0);
-		super.setbCollidable(false);
 	}
 }

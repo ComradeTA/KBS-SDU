@@ -23,5 +23,6 @@ public class Asteroid extends Entity {
         this.segments = 15;
         this.setShapeX(new float[this.segments]);
         this.setShapeY(new float[this.segments]);
+        super.setHitBoxRadius(10);
     }
 }

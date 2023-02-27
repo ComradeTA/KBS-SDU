@@ -5,6 +5,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.ShootPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 import java.util.Random;
@@ -21,14 +22,18 @@ public class EnemyControlSystem implements IEntityProcessingService {
         for (Entity enemy : world.getEntities(Enemy.class)) {
             PositionPart positionPart = enemy.getPart(PositionPart.class);
             MovingPart movingPart = enemy.getPart(MovingPart.class);
+            ShootPart shootPart = enemy.getPart(ShootPart.class);
+
 
             movingPart.setLeft(rand.nextBoolean());
             movingPart.setRight(rand.nextBoolean());
             movingPart.setUp(rand.nextBoolean());
+            shootPart.setShooting(true);
             
 
             movingPart.process(gameData, enemy);
             positionPart.process(gameData, enemy);
+            shootPart.process(gameData, enemy);
 
             updateShape(enemy);
         }

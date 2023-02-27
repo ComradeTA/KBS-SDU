@@ -22,20 +22,9 @@ public class CollisionPlugin implements IGamePluginService {
     }
 
     private Entity createCollisionSystem(GameData gameData) {
+        Entity CollisionModule = new Collision();
 
-        float deacceleration = 10;
-        float acceleration = 200;
-        float maxSpeed = 300;
-        float rotationSpeed = 5;
-        float x = gameData.getDisplayWidth() / 2;
-        float y = gameData.getDisplayHeight() / 2;
-        float radians = 3.1415f / 2;
-        
-        Entity enemyShip = new Collision();
-        enemyShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
-        enemyShip.add(new PositionPart(x, y, radians));
-
-        return enemyShip;
+        return CollisionModule;
     }
 
     @Override
