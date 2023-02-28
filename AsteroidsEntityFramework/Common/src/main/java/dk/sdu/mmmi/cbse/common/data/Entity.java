@@ -16,6 +16,7 @@ public class Entity implements Serializable {
     private float hitBoxRadius = 20;
     private float sqrtHitBoxRadius = (float) Math.sqrt(hitBoxRadius);
     private float size = 1;
+    private boolean isAlive = true;
 
     private Color color = Color.PINK;
     private Map<Class, EntityPart> parts;
@@ -81,7 +82,11 @@ public class Entity implements Serializable {
         this.color = color;
     }
 
-    public float getSqrtHitBoxRadius() {
-        return sqrtHitBoxRadius;
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
     }
 }

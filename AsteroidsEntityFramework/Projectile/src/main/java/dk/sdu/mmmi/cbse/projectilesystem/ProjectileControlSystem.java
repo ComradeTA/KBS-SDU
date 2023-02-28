@@ -3,12 +3,16 @@ package dk.sdu.mmmi.cbse.projectilesystem;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 import java.util.Random;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 /**
  *
@@ -22,14 +26,17 @@ public class ProjectileControlSystem implements IEntityProcessingService {
         for (Entity entity : world.getEntities()){
             ShootPart shootPart = entity.getPart(ShootPart.class);
             if (shootPart != null && shootPart.isShooting() && shootPart.getRateOfFire() <= shootPart.getTimeSinceLastShot()){
-                System.out.println("SHOT!!!");
                 shootPart.justShot();
                 shootPart.setShooting(false);
                 Projectile projectile = new Projectile();
                 PositionPart positionPart = entity.getPart(PositionPart.class);
 
-                projectile.add(new PositionPart(positionPart.getX(), positionPart.getY(), positionPart.getRadians()));
+                Float projectileX = positionPart.getX() + (float) cos(positionPart.getRadians()) * entity.getHitBoxRadius() + (float) cos(positionPart.getRadians()) * projectile.getHitBoxRadius() + (float) cos(positionPart.getRadians());
+                Float projectileY = positionPart.getY() + (float) sin(positionPart.getRadians()) * entity.getHitBoxRadius() + (float) sin(positionPart.getRadians()) * projectile.getHitBoxRadius() + (float) sin(positionPart.getRadians());
+
+                projectile.add(new PositionPart(projectileX, projectileY, positionPart.getRadians()));
                 projectile.add(new MovingPart(0,1000000000,shootPart.getVelocity(),0));
+                projectile.add(new LifePart(1,1,true));
                 world.addEntity(projectile);
             }
         }
@@ -37,10 +44,16 @@ public class ProjectileControlSystem implements IEntityProcessingService {
         for (Entity projectile : world.getEntities(Projectile.class)) {
             PositionPart positionPart = projectile.getPart(PositionPart.class);
             MovingPart movingPart = projectile.getPart(MovingPart.class);
+            LifePart lifePart = projectile.getPart(LifePart.class);
             movingPart.setUp(true);
 
             movingPart.process(gameData, projectile);
             positionPart.process(gameData, projectile);
+            lifePart.process(gameData, projectile);
+            if (lifePart.getExpiration() < 0){
+                world.removeEntity(projectile);
+                continue;
+            }
             updateShape(projectile);
         }
     }

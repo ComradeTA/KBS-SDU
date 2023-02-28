@@ -17,7 +17,6 @@ public class PositionPart implements EntityPart {
     private float x;
     private float y;
     private float radians;
-    private boolean bCollidable = true;
 
     public PositionPart(float x, float y, float radians) {
         this.x = x;
@@ -57,16 +56,4 @@ public class PositionPart implements EntityPart {
     @Override
     public void process(GameData gameData, Entity entity) {
     }
-
-    public boolean isbCollidable() {
-        return bCollidable;
-    }
-
-    public void setbCollidable(boolean bCollidable) {
-        this.bCollidable = bCollidable;
-    }
-    
-    
-    
-    
 }
