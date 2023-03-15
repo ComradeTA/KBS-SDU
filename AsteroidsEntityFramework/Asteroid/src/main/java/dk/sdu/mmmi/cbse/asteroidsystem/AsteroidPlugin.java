@@ -8,41 +8,36 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 public class AsteroidPlugin implements IGamePluginService {
-
-    private Entity enemy;
+    private int initAmountOfAsteroids = 8;
+    private int spawnEdge= 0;
 
     public AsteroidPlugin() {
     }
 
     @Override
     public void start(GameData gameData, World world) {
-        
-        // Add entities to the world
-        enemy = createPlayerShip(gameData);
-        world.addEntity(enemy);
+        for (int i = 0; i < initAmountOfAsteroids; i++) {
+            int x;
+            int y;
+            Asteroid asteroid = new Asteroid();
+            switch (spawnEdge){
+                case 0:
+
+                    x = 0;
+                    y = 0;
+
+            }
+
+            asteroid.add(new PositionPart()
+        }
     }
 
-    private Entity createPlayerShip(GameData gameData) {
-
-        float deacceleration = 10;
-        float acceleration = 200;
-        float maxSpeed = 300;
-        float rotationSpeed = 5;
-        float x = gameData.getDisplayWidth() / 4;
-        float y = gameData.getDisplayHeight() / 4;
-        float radians = 3.1415f / 2;
-        
-        Entity enemyShip = new Asteroid();
-        enemyShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
-        enemyShip.add(new PositionPart(x, y, radians));
-        
-        return enemyShip;
-    }
 
     @Override
     public void stop(GameData gameData, World world) {
         // Remove entities
-        world.removeEntity(enemy);
+        for (Entity asteroid : world.getEntities(Asteroid.class)) {
+            world.removeEntity(asteroid);
+        }
     }
-
 }

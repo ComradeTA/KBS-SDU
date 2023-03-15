@@ -59,27 +59,25 @@ public class ProjectileControlSystem implements IEntityProcessingService {
     }
 
     private void updateShape(Entity entity) {
-        float[] shapex = entity.getShapeX();
-        float[] shapey = entity.getShapeY();
+        float[] shapeX = entity.getShapeX();
+        float[] shapeY = entity.getShapeY();
         PositionPart positionPart = entity.getPart(PositionPart.class);
         float x = positionPart.getX();
         float y = positionPart.getY();
         float radians = positionPart.getRadians();
 
-        shapex[0] = (float) (x + Math.cos(radians) * 8 * entity.getSize());
-        shapey[0] = (float) (y + Math.sin(radians) * 8 * entity.getSize());
+        int segments = ((Projectile)entity).getSegments();
 
-        shapex[1] = (float) (x + Math.cos(radians - 4 * 3.1415f / 5) * 8 * entity.getSize());
-        shapey[1] = (float) (y + Math.sin(radians - 4 * 3.1145f / 5) * 8 * entity.getSize());
+        for(int i = 0; i < segments; i++) {
+            double math1 = Math.cos(2*Math.PI / segments * i);
+            double math2 = Math.sin(2*Math.PI / segments * i);
 
-        shapex[2] = (float) (x + Math.cos(radians + 3.1415f) * 5 * entity.getSize());
-        shapey[2] = (float) (y + Math.sin(radians + 3.1415f) * 5 * entity.getSize());
+            shapeX[i] = (float) (x + Math.cos(radians) + math1 * entity.getSize());
+            shapeY[i] = (float) (y + Math.sin(radians) + math2 * entity.getSize());
+        }
 
-        shapex[3] = (float) (x + Math.cos(radians + 4 * 3.1415f / 5) * 8 * entity.getSize());
-        shapey[3] = (float) (y + Math.sin(radians + 4 * 3.1415f / 5) * 8 * entity.getSize());
-
-        entity.setShapeX(shapex);
-        entity.setShapeY(shapey);
+        entity.setShapeX(shapeX);
+        entity.setShapeY(shapeY);
     }
 
 }
