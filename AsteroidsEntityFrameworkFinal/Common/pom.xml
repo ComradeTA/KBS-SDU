@@ -11,6 +11,14 @@
     <packaging>jar</packaging>
     <name>Common</name>
 
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub sweat-tek Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/sweat-tek/ShadedLibGDX</url>
+        </repository>
+    </repositories>
+
     <dependencies>
     <dependency>
         <groupId>dk.sdu.mmmi.cbse</groupId>
