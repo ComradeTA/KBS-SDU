@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9a7669fa-417c-4032-b681-d7c55c8d8edf" name="Changes" comment="" />
+    <list default="true" id="9a7669fa-417c-4032-b681-d7c55c8d8edf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +31,12 @@
       <option name="presentableId" value="Default" />
       <updated>1677107396221</updated>
       <workItem from="1677107399437" duration="4000" />
+      <workItem from="1682491546058" duration="124000" />
+      <workItem from="1682491684431" duration="19000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
