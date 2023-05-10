@@ -25,10 +25,17 @@ public class Game
     private ShapeRenderer sr;
 
     private final GameData gameData = new GameData();
-    private List<IEntityProcessingService> entityProcessors = new ArrayList<>();
-    private List<IPostEntityProcessingService> postEntityProcessors = new ArrayList<>();
+    private final List<IGamePluginService> gamePluginServices;
+    private List<IEntityProcessingService> entityProcessors;
+    private List<IPostEntityProcessingService> postEntityProcessors;
     private World world = new World();
 
+
+    public Game(List<IGamePluginService> gamePluginServices, List<IEntityProcessingService> entityProcessors, List<IPostEntityProcessingService> postEntityProcessors) {
+        this.gamePluginServices = gamePluginServices;
+        this.entityProcessors = entityProcessors;
+        this.postEntityProcessors = postEntityProcessors;
+    }
     @Override
     public void create() {
 
