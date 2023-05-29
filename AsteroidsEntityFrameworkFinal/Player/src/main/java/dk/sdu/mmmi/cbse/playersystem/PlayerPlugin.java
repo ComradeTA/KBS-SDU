@@ -16,22 +16,38 @@ public class PlayerPlugin implements IGamePluginService {
     public PlayerPlugin() {
     }
 
+
+    /**
+     * Initialize player plugin so that are player ship has been spawned
+     * <br/>
+     * Pre-conditions:       The parameters are not null, start has not been called <br/>
+     * Post-conditions:      A player ship has been spawned
+     * @param gameData contains all data about the game
+     * @param world contains all entities in the world
+     */
     @Override
     public void start(GameData gameData, World world) {
-        
         // Add entities to the world
         player = createPlayerShip(gameData);
         world.addEntity(player);
     }
 
+    /**
+     * Create a player ship entity
+     * <br/>
+     * Pre-conditions:       The parameters are not null, start is being called <br/>
+     * Post-conditions:      A fully capable player ship is returned
+     * @param gameData contains all data about the game
+     * @return a player ship entity
+     */
     private Entity createPlayerShip(GameData gameData) {
 
         float deacceleration = 10;
         float acceleration = 200;
         float maxSpeed = 300;
         float rotationSpeed = 5;
-        float x = gameData.getDisplayWidth() / 2;
-        float y = gameData.getDisplayHeight() / 2;
+        float x = gameData.getDisplayWidth() / 2f;
+        float y = gameData.getDisplayHeight() / 2f;
         float radians = 3.1415f / 2;
         
         Entity playerShip = new Player();
@@ -44,6 +60,14 @@ public class PlayerPlugin implements IGamePluginService {
         return playerShip;
     }
 
+    /**
+     * Stop the player plugin so that the player is removed
+     * <br/>
+     * Pre-conditions:       The parameters are not null, stop has not been called <br/>
+     * Post-conditions:      The player is removed
+     * @param gameData contains all data about the game
+     * @param world contains all entities in the world
+     */
     @Override
     public void stop(GameData gameData, World world) {
         // Remove entities

@@ -5,6 +5,5 @@ module Collision {
     requires Common;
     requires com.badlogic.gdx;
 
-    provides IGamePluginService with dk.sdu.mmmi.cbse.collisionsystem.CollisionPlugin;
     provides IPostEntityProcessingService with dk.sdu.mmmi.cbse.collisionsystem.CollisionControlSystem;
 }

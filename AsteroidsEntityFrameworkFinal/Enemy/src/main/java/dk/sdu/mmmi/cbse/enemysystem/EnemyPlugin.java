@@ -16,6 +16,14 @@ public class EnemyPlugin implements IGamePluginService {
     public EnemyPlugin() {
     }
 
+    /**
+     * Initialize enemy plugin so that are enemy ship has been spawned
+     * <br/>
+     * Pre-conditions:       The parameters are not null, start has not been called <br/>
+     * Post-conditions:      A enemy ship has been spawned
+     * @param gameData contains all data about the game
+     * @param world contains all entities in the world
+     */
     @Override
     public void start(GameData gameData, World world) {
 
@@ -24,6 +32,14 @@ public class EnemyPlugin implements IGamePluginService {
         world.addEntity(enemy);
     }
 
+    /**
+     * Create an enemy ship entity
+     * <br/>
+     * Pre-conditions:       The parameters are not null, start is being called <br/>
+     * Post-conditions:      A fully capable enemy ship is returned
+     * @param gameData contains all data about the game
+     * @return an enemy ship entity
+     */
     private Entity createEnemyShip(GameData gameData) {
 
         float deacceleration = 10;
@@ -43,6 +59,14 @@ public class EnemyPlugin implements IGamePluginService {
         return enemyShip;
     }
 
+    /**
+     * Stop the enemy plugin so that the enemy is removed
+     * <br/>
+     * Pre-conditions:       The parameters are not null, stop has not been called <br/>
+     * Post-conditions:      The enemy is removed
+     * @param gameData contains all data about the game
+     * @param world contains all entities in the world
+     */
     @Override
     public void stop(GameData gameData, World world) {
         // Remove entities

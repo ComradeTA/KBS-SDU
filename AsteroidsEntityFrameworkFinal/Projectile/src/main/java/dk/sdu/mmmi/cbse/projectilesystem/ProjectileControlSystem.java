@@ -14,12 +14,16 @@ import java.util.Random;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
-/**
- *
- * @author jcs
- */
 public class ProjectileControlSystem implements IEntityProcessingService {
 
+    /**
+     * This will process the behavior of all projectiles and all entities with the shootingPart
+     * <br/>
+     * Pre-conditions:      The parameters must not be null, projectiles and a means to spawn them should exist<br/>
+     * Post-conditions:     All projectiles and all shootingParts have been processed
+     * @param gameData contains all data about the game
+     * @param world contains all entities in the world
+     */
     @Override
     public void process(GameData gameData, World world) {
 
@@ -54,10 +58,21 @@ public class ProjectileControlSystem implements IEntityProcessingService {
                 world.removeEntity(projectile);
                 continue;
             }
+            if (lifePart.isDead()){
+                handleDeath(world, projectile);
+                continue;
+            }
             updateShape(projectile);
         }
     }
 
+    /**
+     * This will update the shape of the entity
+     * <br/>
+     * Pre-conditions:       The entity is currently being processed <br/>
+     * Post-conditions:      The shape of the entity is updated
+     * @param entity the entity that needs to update its shape
+     */
     private void updateShape(Entity entity) {
         float[] shapeX = entity.getShapeX();
         float[] shapeY = entity.getShapeY();
@@ -80,4 +95,16 @@ public class ProjectileControlSystem implements IEntityProcessingService {
         entity.setShapeY(shapeY);
     }
 
+    /**
+     * This will handle the death of the entity
+     * <br/>
+     * Pre-conditions:       The entity is dead<br/>
+     * Post-conditions:      The entity is removed from the world
+     * @param world contains all entities in the world
+     * @param thisEntity the entity which death will be handled
+     */
+    private void handleDeath(World world, Entity thisEntity){
+        world.removeEntity(thisEntity);
+    }
 }
+

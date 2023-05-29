@@ -15,11 +15,11 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 public class LifePart implements EntityPart {
 
     private int life;
-    private boolean isHit = false;
     private float expiration;
     private boolean canExpire;
     private boolean bCollidable = true;
     private int collisionDamage = 1;
+    private boolean isDead = false;
 
     public LifePart(int life, float expiration, boolean canExpire) {
         this.life = life;
@@ -27,25 +27,35 @@ public class LifePart implements EntityPart {
         this.canExpire = canExpire;
     }
 
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        if (dead){
+            life = 0;
+        }
+        isDead = dead;
+    }
+
     public int getLife() {
         return life;
     }
 
     public void setLife(int life) {
+        if (life <= 0){
+            isDead = true;
+        }
         this.life = life;
     }
 
     public void takeDamage(int damage){
         life -= damage;
+        if (life <= 0){
+            isDead = true;
+        }
     }
 
-    public boolean isIsHit() {
-        return isHit;
-    }
-
-    public void setIsHit(boolean isHit) {
-        this.isHit = isHit;
-    }
 
     public float getExpiration() {
         return expiration;

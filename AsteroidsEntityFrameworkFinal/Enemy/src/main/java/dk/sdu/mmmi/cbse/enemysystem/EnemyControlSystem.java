@@ -11,16 +11,24 @@ import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 import java.util.Random;
 
-/**
- *
- * @author jcs
- */
 public class EnemyControlSystem implements IEntityProcessingService {
 
+    /**
+     * This will process the behavior of the enemy
+     * <br/>
+     * Pre-conditions:      The parameters must not be null, the plugin should have initialized the enemy<br/>
+     * Post-conditions:     The enemy ship behavior has been processed
+     * @param gameData contains all data about the game
+     * @param world contains all entities in the world
+     */
     @Override
     public void process(GameData gameData, World world) {
         Random rand = new Random();
         for (Entity enemy : world.getEntities(Enemy.class)) {
+            LifePart lifePart = enemy.getPart(LifePart.class);
+            if(lifePart.isDead()){
+                handleDeath(world, enemy);
+            }
             PositionPart positionPart = enemy.getPart(PositionPart.class);
             MovingPart movingPart = enemy.getPart(MovingPart.class);
             ShootPart shootPart = enemy.getPart(ShootPart.class);
@@ -28,8 +36,8 @@ public class EnemyControlSystem implements IEntityProcessingService {
 
             movingPart.setLeft(rand.nextBoolean());
             movingPart.setRight(rand.nextBoolean());
-            movingPart.setUp(false);
-            shootPart.setShooting(false);
+            movingPart.setUp(true);
+            shootPart.setShooting(true);
             
 
             movingPart.process(gameData, enemy);
@@ -40,6 +48,13 @@ public class EnemyControlSystem implements IEntityProcessingService {
         }
     }
 
+    /**
+     * This will update the shape of the entity
+     * <br/>
+     * Pre-conditions:       The entity is currently being processed <br/>
+     * Post-conditions:      The shape of the entity is updated
+     * @param entity the entity that needs to update its shape
+     */
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
         float[] shapey = entity.getShapeY();
@@ -64,4 +79,15 @@ public class EnemyControlSystem implements IEntityProcessingService {
         entity.setShapeY(shapey);
     }
 
+    /**
+     * This will handle the death of the entity
+     * <br/>
+     * Pre-conditions:       The entity is dead<br/>
+     * Post-conditions:      The entity is removed from the world
+     * @param world contains all entities in the world
+     * @param thisEntity the entity which death will be handled
+     */
+    private void handleDeath(World world, Entity thisEntity){
+        world.removeEntity(thisEntity);
+    }
 }

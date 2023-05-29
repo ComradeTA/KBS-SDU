@@ -17,6 +17,14 @@ public class ProjectilePlugin implements IGamePluginService {
     }
 
 
+    /**
+     * Stop the projectile plugin so that all projectiles are removed
+     * <br/>
+     * Pre-conditions:       The parameters are not null, stop has not been called <br/>
+     * Post-conditions:      All asteroids have been removed
+     * @param gameData contains all data about the game
+     * @param world contains all entities in the world
+     */
     @Override
     public void stop(GameData gameData, World world) {
         // Remove entities
