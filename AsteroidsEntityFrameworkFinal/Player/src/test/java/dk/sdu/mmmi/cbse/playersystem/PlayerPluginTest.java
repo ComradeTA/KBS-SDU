@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,8 +24,8 @@ class PlayerPluginTest {
     @Test
     @DisplayName("Check that player is created when we start this plugin")
     void startPlayerPlugin(){
-        assertTrue(world.getEntities().stream().collect(Collectors.toList()).toArray().length == 0);
+        assertEquals(0, world.getEntities().toArray().length);
         playerPlugin.start(gameData, world);
-        assertTrue(world.getEntities().stream().collect(Collectors.toList()).toArray().length == 1);
+        assertEquals(1, world.getEntities(Player.class).toArray().length);
     }
 }
