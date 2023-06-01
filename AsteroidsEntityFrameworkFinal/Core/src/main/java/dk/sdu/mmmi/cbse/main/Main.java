@@ -23,5 +23,4 @@ public class Main {
 
 		new Lwjgl3Application(ctx.getBean(Game.class), config);
 	}
-	
 }

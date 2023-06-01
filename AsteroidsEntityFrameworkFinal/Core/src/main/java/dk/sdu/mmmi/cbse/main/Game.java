@@ -31,11 +31,14 @@ public class Game
     private World world = new World();
 
 
-    public Game(List<IGamePluginService> gamePluginServices, List<IEntityProcessingService> entityProcessors, List<IPostEntityProcessingService> postEntityProcessors) {
+    public Game(List<IGamePluginService> gamePluginServices,
+                List<IEntityProcessingService> entityProcessors,
+                List<IPostEntityProcessingService> postEntityProcessors) {
         this.gamePluginServices = gamePluginServices;
         this.entityProcessors = entityProcessors;
         this.postEntityProcessors = postEntityProcessors;
     }
+
     @Override
     public void create() {
 
@@ -122,14 +125,17 @@ public class Game
     }
 
     private Collection<? extends IGamePluginService> getPluginServices() {
-        return ServiceLoader.load(IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(IGamePluginService.class).
+                stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
     private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
-        return ServiceLoader.load(IEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(IEntityProcessingService.class).
+                stream().map(ServiceLoader.Provider::get).collect(toList());
     }
     
        private Collection<? extends IPostEntityProcessingService> getPostEntityProcessingServices() {
-        return ServiceLoader.load(IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(IPostEntityProcessingService.class).
+                stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }

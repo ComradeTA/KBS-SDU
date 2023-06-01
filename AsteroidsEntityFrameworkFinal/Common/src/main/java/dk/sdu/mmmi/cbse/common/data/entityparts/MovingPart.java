@@ -10,10 +10,6 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 
 import static java.lang.Math.*;
 
-/**
- *
- * @author Alexander
- */
 public class MovingPart
         implements EntityPart {
 

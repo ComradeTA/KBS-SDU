@@ -19,24 +19,23 @@ public class ModuleConfig {
 
     public ModuleConfig() {
     }
-
     @Bean
     public Game game(){
         return new Game(gamePluginServices(), entityProcessingServiceList(), postEntityProcessingServices());
     }
-
     @Bean
     public List<IEntityProcessingService> entityProcessingServiceList(){
-        return ServiceLoader.load(IEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(IEntityProcessingService.class).
+                stream().map(ServiceLoader.Provider::get).collect(toList());
     }
-
     @Bean
     public List<IGamePluginService> gamePluginServices() {
-        return ServiceLoader.load(IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(IGamePluginService.class).
+                stream().map(ServiceLoader.Provider::get).collect(toList());
     }
-
     @Bean
     public List<IPostEntityProcessingService> postEntityProcessingServices() {
-        return ServiceLoader.load(IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(IPostEntityProcessingService.class).
+                stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }
